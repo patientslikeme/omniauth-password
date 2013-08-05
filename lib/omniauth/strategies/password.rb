@@ -5,6 +5,7 @@ module OmniAuth
 
       option :user_model, nil # default set to 'User' below
       option :login_field, :email
+      option :login_transform, :to_s
 
       def request_phase
         redirect "/session/new"
@@ -24,7 +25,7 @@ module OmniAuth
       end
 
       def login
-        request[:sessions][options[:login_field].to_s]
+        request[:sessions][options[:login_field].to_s].send(options[:login_transform])
       end
 
       def password
