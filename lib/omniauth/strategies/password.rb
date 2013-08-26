@@ -25,11 +25,19 @@ module OmniAuth
       end
 
       def login
-        request[:sessions][options[:login_field].to_s].send(options[:login_transform])
+        if request[:sessions]
+          request[:sessions][options[:login_field].to_s].send(options[:login_transform])
+        else
+          ''
+        end
       end
 
       def password
-        request[:sessions]['password']
+        if request[:sessions]
+          request[:sessions]['password']
+        else
+          ''
+        end
       end
 
       uid do
